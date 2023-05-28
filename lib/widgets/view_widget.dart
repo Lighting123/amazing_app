@@ -1,8 +1,7 @@
 import 'package:amazing_app/screens/battery_level_tracker.dart';
+import 'package:amazing_app/notifiers/chip_value_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../notifiers.dart';
 
 final chipValue1Provider =
     StateNotifierProvider<ChipValueNotifier, bool>((ref) {
@@ -23,14 +22,17 @@ class ViewWidget extends ConsumerWidget {
 
     return Row(
       children: [
-        ChoiceChip(
-          label: const Text("Day"),
-          selected: chipValue1,
-          onSelected: (value) {
-            ref.read(chipValue1Provider.notifier).toggle(value);
-            ref.read(chipValue2Provider.notifier).toggle(false);
-            ref.read(listOfLevelsProvider.notifier).sortByday();
-          },
+        Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: ChoiceChip(
+            label: const Text("Day"),
+            selected: chipValue1,
+            onSelected: (value) {
+              ref.read(chipValue1Provider.notifier).toggle(value);
+              ref.read(chipValue2Provider.notifier).toggle(false);
+              ref.read(listOfLevelsProvider.notifier).sortByday();
+            },
+          ),
         ),
         ChoiceChip(
           label: const Text("All"),
