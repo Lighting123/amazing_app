@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:amazing_app/drawer.dart';
 
 var inputText = "";
+var numberOfBytes = 0;
 
 class TextUtilitiesScreen extends StatefulWidget {
   const TextUtilitiesScreen({super.key});
@@ -11,6 +14,8 @@ class TextUtilitiesScreen extends StatefulWidget {
 }
 
 class _TextUtilitiesScreenState extends State<TextUtilitiesScreen> {
+  final textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,21 +34,46 @@ class _TextUtilitiesScreenState extends State<TextUtilitiesScreen> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(inputText),
+            child: SelectableText(inputText),
           ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
-              decoration: InputDecoration(
+              maxLines: 4,
+              controller: textController,
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter text',
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: OutlinedButton(
+                onPressed: () {
+                  setState(() {
+                    inputText += textController.text;
+                    numberOfBytes = utf8.encode(inputText).length;
+                  });
+                },
+                child: const Text("Enter")),
+          ),
           const Padding(
             padding: EdgeInsets.all(8.0),
-            child: OutlinedButton(onPressed: null, child: Text("Enter")),
-          )
+            child: Text("Number of characters: "),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SelectableText(inputText.characters.length.toString()),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("Bytes: "),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SelectableText(numberOfBytes.toString()),
+          ),
         ],
       ),
     );

@@ -20,18 +20,12 @@ class LevelNotifier extends StateNotifier<List<LevelData>> {
     var today = DateTime.now();
 
     for (var element in state) {
-      if (element.time.day == today.day) {
+      var time = element.time;
+      if (time.day == today.day && time.month == today.month && time.year == today.year) {
         levelsByDay.add(element);
       } else {}
     }
 
     state = levelsByDay;
   }
-
-  // void removeTodo(String todoId) {
-  // state = [
-  // for (final todo in state)
-  // if (todo.id != todoId) todo,
-  // ];
-  // }
 }
