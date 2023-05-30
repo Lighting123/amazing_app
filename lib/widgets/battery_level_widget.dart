@@ -12,7 +12,7 @@ class _BatteryLevelWidgetState extends State<BatteryLevelWidget> {
   var battery = Battery();
 
   var batteryLevel = ValueNotifier(0);
-  late BatteryState batteryStatus;
+  BatteryState batteryStatus = BatteryState.unknown;
 
   Future<void> setBatteryLevel() async {
     batteryLevel.value = await battery.batteryLevel;

@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:amazing_app/drawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 var inputText = "";
 var numberOfBytes = 0;
@@ -15,6 +17,11 @@ class TextUtilitiesScreen extends StatefulWidget {
 
 class _TextUtilitiesScreenState extends State<TextUtilitiesScreen> {
   final textController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +41,12 @@ class _TextUtilitiesScreenState extends State<TextUtilitiesScreen> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: SelectableText(inputText),
+            child: AutoSizeText(
+              inputText,
+              maxLines: 10,
+              minFontSize: 15,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -47,17 +59,59 @@ class _TextUtilitiesScreenState extends State<TextUtilitiesScreen> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: OutlinedButton(
-                onPressed: () {
-                  setState(() {
-                    inputText += textController.text;
-                    numberOfBytes = utf8.encode(inputText).length;
-                  });
-                },
-                child: const Text("Enter")),
-          ),
+          Row(children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: OutlinedButton(
+                  onPressed: () async {
+                    final SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    setState(() {
+                      inputText += textController.text;
+                      numberOfBytes = utf8.encode(inputText).length;
+                    });
+                    await prefs.setString('inputText', textController.text);
+                    await prefs.setInt('numberOfBytes', numberOfBytes);
+                  },
+                  child: const Text("Enter")),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: OutlinedButton(
+                  onPressed: () async {
+                    final SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    setState(() {
+                      inputText = "";
+                      numberOfBytes = 0;
+                    });
+                    await prefs.clear();
+                  },
+                  child: const Text("Clear")),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: OutlinedButton(
+                  onPressed: () async {
+                    final SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    setState(() {
+                      var tempText = prefs.getString('inputText');
+                      var tempNumberOfBytes = prefs.getInt('numberOfBytes');
+                      if (tempText == null) {
+                      } else {
+                        inputText = tempText;
+                        textController.text = tempText;
+                      }
+                      if (tempNumberOfBytes == null) {
+                      } else {
+                        numberOfBytes = tempNumberOfBytes;
+                      }
+                    });
+                  },
+                  child: const Text("Load State")),
+            )
+          ]),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("Number of characters: "),

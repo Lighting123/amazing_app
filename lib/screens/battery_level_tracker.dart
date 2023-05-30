@@ -6,6 +6,7 @@ import 'package:amazing_app/widgets/view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 final listOfLevelsProvider =
     StateNotifierProvider<LevelNotifier, List<LevelData>>((ref) {
@@ -36,16 +37,14 @@ class BatteryLevelTrackerScreen extends ConsumerWidget {
                 child: ListView.builder(
                     itemCount: listOfLevels.length,
                     itemBuilder: (context, index) {
-                      var hour = listOfLevels[index].time.hour;
-                      var minute = listOfLevels[index].time.minute;
-                      var second = listOfLevels[index].time.second;
-                      var day = listOfLevels[index].time.day;
-                      var month = listOfLevels[index].time.month;
-                      var year = listOfLevels[index].time.year;
+                      var formattedDate =
+                          DateFormat.yMMMEd().format(listOfLevels[index].time);
+                      var formattedTime =
+                          DateFormat.Hms().format(listOfLevels[index].time);
                       return ListTile(
                         title: Text("${listOfLevels[index].level}%"),
                         subtitle: Text(
-                            "At $hour:$minute:$second\nState: ${listOfLevels[index].batteryState}\nDate: $day-$month-$year"),
+                            "At $formattedDate on $formattedTime\nState: ${listOfLevels[index].batteryState}"),
                       );
                     })),
             Row(

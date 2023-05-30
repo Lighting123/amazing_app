@@ -16,11 +16,11 @@ class FirstRoute extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: 1),
-              child: Text("Welcome to my amazing app,"),
+              child: Text("Welcome to my amazing app,\nEmmy's app"),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 16),
-              child: Text("Emmy's app"),
+              padding: EdgeInsets.all(8),
+              child: OutlinedButton(onPressed: null, child: Text("About")),
             ),
           ],
         ),

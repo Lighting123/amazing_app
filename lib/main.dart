@@ -14,7 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Amazing App',
-      theme: ThemeData(primarySwatch: Colors.green, useMaterial3: true),
+      theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+          useMaterial3: true),
       home: const FirstRoute(),
     );
   }
