@@ -8,8 +8,9 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("About Screen")),
-      drawer: Drawer(child: const DrawerContent()),
+      drawer: const Drawer(child: DrawerContent()),
       body: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: EdgeInsets.all(8.0),
