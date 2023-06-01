@@ -49,6 +49,7 @@ class ViewWidget extends ConsumerWidget {
               ref.read(chipValue2Provider.notifier).toggle(value);
               ref.read(chipValue1Provider.notifier).toggle(false);
               ref.read(chipValue3Provider.notifier).toggle(false);
+              ref.read(listOfLevelsProvider.notifier).yesterdayFilter();
             },
           ),
         ),

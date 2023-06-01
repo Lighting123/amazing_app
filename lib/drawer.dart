@@ -1,6 +1,5 @@
 import 'package:amazing_app/screens/attempts_recorder_screen.dart';
 import 'package:amazing_app/screens/battery_level_tracker.dart';
-import 'package:amazing_app/screens/memorize_screen.dart';
 import 'package:amazing_app/screens/text_utils_screen.dart';
 import 'package:amazing_app/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -49,19 +48,6 @@ class DrawerContent extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => const BatteryLevelTrackerScreen()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(
-              Icons.restart_alt,
-              color: Colors.deepOrange,
-            ),
-            title: const Text("Memorize"),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const MemorizeScreen()));
             },
           ),
           ListTile(

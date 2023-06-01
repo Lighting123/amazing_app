@@ -15,17 +15,38 @@ class LevelNotifier extends StateNotifier<List<LevelData>> {
     state = data;
   }
 
-  void sortByday() {
+  Future<void> sortByday() async {
     var levelsByDay = <LevelData>[];
     var today = DateTime.now();
+    state = await readBatteryLevelDataFromLog();
 
     for (var element in state) {
       var time = element.time;
-      if (time.day == today.day && time.month == today.month && time.year == today.year) {
+      if (time.day == today.day &&
+          time.month == today.month &&
+          time.year == today.year) {
         levelsByDay.add(element);
       } else {}
     }
 
     state = levelsByDay;
+  }
+
+  Future<void> yesterdayFilter() async {
+    var levelsYesterday = <LevelData>[];
+    var today = DateTime.now();
+    var yesterday = today.subtract(const Duration(days: 1));
+    state = await readBatteryLevelDataFromLog();
+
+    for (var element in state) {
+      var time = element.time;
+      if (time.day == yesterday.day &&
+          time.month == yesterday.month &&
+          time.year == yesterday.year) {
+        levelsYesterday.add(element);
+      } else {}
+    }
+
+    state = levelsYesterday;
   }
 }

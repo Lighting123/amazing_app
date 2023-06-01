@@ -1,4 +1,5 @@
 import 'package:amazing_app/drawer.dart';
+import 'package:amazing_app/screens/about_screen.dart';
 import 'package:flutter/material.dart';
 
 class FirstRoute extends StatelessWidget {
@@ -10,17 +11,24 @@ class FirstRoute extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(vertical: 1),
-              child: Text("Welcome to my amazing app,\nEmmy's app"),
+              child: Text("Welcome to my amazing app"),
             ),
             Padding(
-              padding: EdgeInsets.all(8),
-              child: OutlinedButton(onPressed: null, child: Text("About")),
+              padding: const EdgeInsets.all(8),
+              child: OutlinedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AboutScreen()));
+                  },
+                  child: const Text("About")),
             ),
           ],
         ),

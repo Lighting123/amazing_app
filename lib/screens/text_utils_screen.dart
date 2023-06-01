@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:amazing_app/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:amazing_app/drawer.dart';
@@ -17,11 +18,6 @@ class TextUtilitiesScreen extends StatefulWidget {
 
 class _TextUtilitiesScreenState extends State<TextUtilitiesScreen> {
   final textController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +67,6 @@ class _TextUtilitiesScreenState extends State<TextUtilitiesScreen> {
                       numberOfBytes = utf8.encode(inputText).length;
                     });
                     await prefs.setString('inputText', textController.text);
-                    await prefs.setInt('numberOfBytes', numberOfBytes);
                   },
                   child: const Text("Enter")),
             ),
@@ -97,16 +92,12 @@ class _TextUtilitiesScreenState extends State<TextUtilitiesScreen> {
                         await SharedPreferences.getInstance();
                     setState(() {
                       var tempText = prefs.getString('inputText');
-                      var tempNumberOfBytes = prefs.getInt('numberOfBytes');
                       if (tempText == null) {
                       } else {
                         inputText = tempText;
                         textController.text = tempText;
                       }
-                      if (tempNumberOfBytes == null) {
-                      } else {
-                        numberOfBytes = tempNumberOfBytes;
-                      }
+                      numberOfBytes = utf8.encode(inputText).length;
                     });
                   },
                   child: const Text("Load State")),
@@ -126,7 +117,7 @@ class _TextUtilitiesScreenState extends State<TextUtilitiesScreen> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: SelectableText(numberOfBytes.toString()),
+            child: SelectableText(getNumberOfBytes(numberOfBytes)),
           ),
         ],
       ),
