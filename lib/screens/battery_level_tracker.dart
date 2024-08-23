@@ -14,7 +14,7 @@ final listOfLevelsProvider =
 });
 
 class BatteryLevelTrackerScreen extends ConsumerWidget {
-  const BatteryLevelTrackerScreen({Key? key}) : super(key: key);
+  const BatteryLevelTrackerScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

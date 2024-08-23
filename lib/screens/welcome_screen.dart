@@ -3,7 +3,7 @@ import 'package:amazing_app/screens/about_screen.dart';
 import 'package:flutter/material.dart';
 
 class FirstRoute extends StatelessWidget {
-  const FirstRoute({Key? key}) : super(key: key);
+  const FirstRoute({super.key});
 
   @override
   Widget build(BuildContext context) {

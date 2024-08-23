@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 var listOfAttempts = <AttemptData>[];
 
 class AttemptsRecorder extends StatefulWidget {
-  const AttemptsRecorder({Key? key}) : super(key: key);
+  const AttemptsRecorder({super.key});
 
   @override
   State<AttemptsRecorder> createState() => _AttemptsRecorderState();

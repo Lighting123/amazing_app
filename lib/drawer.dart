@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'screens/guess_the_number_game.dart';
 
 class DrawerContent extends StatelessWidget {
-  const DrawerContent({Key? key}) : super(key: key);
+  const DrawerContent({super.key});
 
   @override
   Widget build(BuildContext context) {
